@@ -19,12 +19,14 @@ class HouseFeatures(BaseModel):
 
 # Niveau 0 — Préambule : GET /predict retourne une valeur fixe
 @app.get("/predict")
+@app.get("/prediction")
 def predict_get():
     return {"y_pred": 2}
 
 
 # Niveau 0 — POST /predict avec le modèle de prédiction
 @app.post("/predict")
+@app.post("/prediction")
 def predict_post(features: HouseFeatures):
     # Préparer les données
     X = np.array([[features.size, features.nb_rooms, features.garden]])
