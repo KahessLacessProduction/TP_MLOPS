@@ -53,7 +53,7 @@ python test_api.py
 
 Documentation interactive Swagger disponible sur : `http://localhost:8000/docs`.
 
-### 5. Conteneurisation avec Docker
+### 5. Conteneurisation avec Docker (Local)
 
 ```bash
 # Construction de l'image
@@ -62,3 +62,49 @@ docker build -t house-price-api .
 # Lancement du conteneur
 docker run -d -p 8000:8000 --name api-container house-price-api
 ```
+
+---
+
+## 🌐 Déploiement sur la Machine Virtuelle Distante (Niveaux 0.5 & 2)
+
+- **Hôte VM** : `40.66.48.24` (utilisateur : `ubuntu`)
+- **Dossier de travail** : `/home/ubuntu/kn/TP_MLOPS`
+- **Port exposé** : `8042`
+- **Documentation Swagger en ligne** : [http://40.66.48.24:8042/docs](http://40.66.48.24:8042/docs)
+
+### Commandes exécutées sur la VM :
+
+```bash
+# 1. Connexion SSH
+ssh ubuntu@40.66.48.24
+
+# 2. Création du répertoire et clonage du dépôt
+mkdir -p /home/ubuntu/kn
+cd /home/ubuntu/kn
+git clone https://github.com/KahessLacessProduction/TP_MLOPS.git
+cd TP_MLOPS
+
+# 3. Build de l'image Docker
+docker build -t kn-house-price-api .
+
+# 4. Lancement du conteneur en arrière-plan
+docker run -d -p 8042:8000 --name kn-house-price-api --restart unless-stopped kn-house-price-api
+```
+
+### Tester l'API distante :
+
+Depuis n'importe quelle machine ou terminal :
+
+```bash
+# Test GET
+curl http://40.66.48.24:8042/predict
+
+# Test POST avec prédiction
+curl -X POST http://40.66.48.24:8042/predict \
+     -H "Content-Type: application/json" \
+     -d '{"size": 100, "nb_rooms": 3, "garden": 1}'
+
+# Ou via le script Python de test
+python test_api.py http://40.66.48.24:8042
+```
+

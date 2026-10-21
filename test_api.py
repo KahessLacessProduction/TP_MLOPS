@@ -34,4 +34,4 @@ print(f"Entrée : {data2}")
 print(f"Status : {response.status_code}")
 print(f"Réponse : {response.json()}")
 
-print("\n✅ Tous les tests sont passés !")
+print("\n[OK] Tous les tests sont passes !")
