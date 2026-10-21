@@ -9,6 +9,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copier le code source et le modèle
 COPY api.py .
+COPY main.py .
 COPY regression.joblib .
 
 # Exposer le port
