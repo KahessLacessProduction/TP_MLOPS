@@ -1,0 +1,10 @@
+__pycache__
+*.pyc
+*.pyo
+.git
+.gitignore
+*.md
+test_api.py
+model_app.py
+houses.csv
+train_model.py
